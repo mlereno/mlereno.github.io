@@ -1,0 +1,69 @@
+/* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #87CEFA; /* Azul claro */
+            margin: 0;
+            padding: 20px;
+        }
+
+        #logo {
+            background-color: #f5f5dc;
+            font-size: 2em;
+            padding: 10px;
+            border-radius: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Tabuleiro */
+        #tabuleiro {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        .linha {
+            position: absolute;
+            background-color: black;
+        }
+
+        .casa {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 2px solid blue;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mensagens */
+        #mensagem {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .content {
+            display: none;
+        }
+        .seta::after {
+            content: '>';
+            display: inline-block;
+            margin-left: 5px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .seta.expanded::after {
+            transform: rotate(90deg);
+        }
+        

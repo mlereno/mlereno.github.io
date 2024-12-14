@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<head lang="pt">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trilha, o Jogo</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <header>
+    <div style="text-align: center;">
+        <img src="logo.png" width="500" height="220">
+    </div>
+    
+
+    <hr> <!--colocar uma linha na tela--> 
+    </header>
+
+    <main>
+        <section id="user-auth">
+            <h3>Registar</h3>
+            <form id="form-registrar" onsubmit="event.preventDefault(); registrarUsuario(nick.value, password.value);">
+                <input type="text" id="nick" placeholder="Nickname" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Registar</button>
+            </form>
+        </section>
+        
+        <section>
+            <div>
+                <label for="numQuadrados">Número de Quadrados:</label>
+                <input type="number" id="numQuadrados" value="2" min="2" max="5">
+                <button onclick="iniciarJogo()">Iniciar Jogo</button>
+            </div>
+        </section>
+        <section id="tabuleiro-container">
+            <div id="tabuleiro"></div>
+        </section>
+        <section id="status-container">
+            <p id="mensagem">Bem-vindo ao Jogo da Trilha! Configure o jogo para começar.</p>
+        </section>
+        <section id="ranking">
+            <h3>Ranking</h3>
+            <button onclick="obterRanking()">Ver Ranking</button>
+            <ul id="ranking-list"></ul>
+        </section>
+    
+    <footer>
+        <p>&copy; 2024 - Trilha, o Jogo</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script type="module" src="./index.js"></script>
+    <script type="module" src="./auth.js"></script>
+    <script type="module" src="./utils.js"></script>
+    <script type="module" src="./ranking.js"></script>
+    <script src="script.js"></script>
+    
+    <!--Regras-->
+    <p class="seta" onclick="toggleContent('rulesContent')">REGRAS</p>
+    <div id="rulesContent" class="content">
+            <strong>1. Tabuleiro e peças</strong>
+            <ul>
+                <li>Trilha é um jogo de tabuleiro para dois jogadores</li>
+                <li>Joga-se num tabuleiro de, normalmente, 3 quadrados concentricos</li>
+                <li>Os quadrados estão ligados por linhas no meio dos lados</li>
+                <li>Cada quadrado tem 8 casas, os cantos e o meio dos lados</li>
+                <li>As casas são marcadas com uma circumferência</li>
+                <li>O tabuleiro pode ter de 2 a 5 quadrados</li>
+                <li>Num tabuleiro com n quadrados, cada jogador tem 3 * n peças que são colocadas nas casas</li>
+                <li>Peças fora do tabuleiro são agrupadas por cor - azul e vermelho - dos lados esquerdo e direito do tabuleiro</li>
+            </ul>
+        
+            <strong>2. Regras básicas</strong>
+            <ul>
+                <li>Jogadores escolhem uma cor e decidem quem joga primeiro</li>
+                <li>Inicialmente o tabuleiro está vazio</li>
+                <li>O jogo tem 2 fases: </li>
+                <ul>
+                    <li>Fase 1 - Pôr as peças (drop)</li>
+                    <li>Fase 2 - Mover as peças (move)</li>
+                </ul>
+            </ul>
+          
+            <strong>3. Moinhos</strong>
+            <ul>	
+                <li>São considerados moinhos:</li>
+                <ul>
+                    <li>sequências de 3 peças contíguas</li>
+                    <li>na horizontal ou vertical (não na diagonal)</li>
+                    <li>todas da mesma cor</li>
+                </ul>
+            </ul>
+        
+            <strong>4. Pôr as peças</strong>
+            <ul>
+                <li> Jogadores põem alternadamente uma peça sua numa casa livre</li>
+                <li> Podem existir moinhos (mas não é vantajoso)</li>
+                <li> Quando todas as peças estão colocadas termina esta fase</li>
+            </ul>
+          
+            <strong>5. Mover as peças</strong>
+            <ul>
+                <li> Cada jogador move alternadamente uma peça da sua cor</li>
+                <li> Uma peça só pode ser movida para uma casa contígua</li>
+                <li> Peças movidas apenas na horizontal ou vertical (não na diagonal)</li>
+                <li> Uma moinho permite capturar peça do adversário</li>
+                <li> Neste caso, remove uma peça do adversário à sua escolha</li>
+                <li> Só uma peça é removida por jogada</li>
+                <li> Uma peça pode retornar à posição da jogada anterior e voltar a formar um moinho na jogada seguinte</li>
+            </ul>
+
+            <strong>6. Movimento livre</strong>
+            <ul>
+                <li> Inicia-se quando um jogador tiver apenas 3 peças</li>
+                <li> Esse jogador passa a poder jogar para qualquer casa livre</li>    
+                <li> Não está restrito a jogar para casas contíguas</li>
+            </ul>     
+          
+            <strong>7. Fim do Jogo</strong>
+            <ul> 
+                <li> O jogo termina com:</li>
+                <ul>
+                    <li> a derrota do/a jogador(a) que tiver apenas 2 peças</li>
+                    <li> um empate se</li>
+                        <ul> 
+                          <li> não for possível realizar uma jogada válida</li>
+                          <li> ambos os jogadores tiverem 3 peças e em 10 jogadas não houver um vencedor</li>
+                        </ul>
+                </ul>
+            </ul>
+    </div>
+    
+    <!--Classificações-->
+    <p class="seta" onclick="toggleContent('classifcontent'); atualizarTabelaClassificacoes()">CLASSIFICAÇÕES</p>
+    <div id="classifcontent" class="content">     
+        <table>
+            <tr>
+                <th></th>
+                <th>Vitórias</th>
+            </tr>
+            <tr>
+                <td>Jogador </td>
+                <td id="vitJog"></td>
+            </tr>
+            <tr>
+                <td>Computador</td>
+                <td id="vitComp"></td>
+            </tr>
+        </table>
+    </div>
+
+    </main>
+</body>
+</html>
