@@ -46,3 +46,25 @@ export function iniciarTabuleiro(numQuadrados) {
     console.log(`Tabuleiro com ${numQuadrados} quadrados criado.`);
 }
 
+export function verificarMoinho(tabuleiro, index, jogador) {
+    const moinhos = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 9, 21], [3, 10, 18], [6, 11, 15],
+        [1, 4, 7], [16, 17, 18], [19, 20, 21]
+    ];
+
+    return moinhos.some(combinacao => 
+        combinacao.includes(index) &&
+        combinacao.every(casa => tabuleiro[casa] === jogador)
+    );
+}
+
+export function calcularAdjacencias(index) {
+    const adjacencias = [
+        [1, 9], [0, 2, 4], [1, 14],
+        [4, 10], [1, 3, 5, 7], [4, 13],
+        [7, 11], [4, 6, 8], [7, 12]
+    ];
+    return adjacencias[index] || [];
+}
+
