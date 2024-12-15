@@ -28,7 +28,7 @@ function iniciarJogo() {
     pecasComputador = 0;
     tabuleiroEstado = Array(9).fill(null); // Reseta o estado do tabuleiro
 
-    desenharQuadrados('gameCanvas');
+    desenharQuadrados(tabuleiro);
     adicionarCasas(tabuleiro);
     turnoDoJogador = true; // Jogador começa
     document.getElementById("mensagem").innerText = "Jogo iniciado! Sua vez.";
@@ -207,94 +207,43 @@ async function obterRanking() {
     }
 }
 
-function desenharQuadrados(canvasId) {
-    const canvas = document.getElementById(canvasId);
+function desenharQuadrados(tabuleiro) {
+    const canvas = document.getElementById(tabuleiro.canvasId);
     if (!canvas) {
-        console.error(`Canvas with ID "${canvasId}" not found.`);
+        console.error(`Canvas with ID "${tabuleiro.canvasId}" not found.`);
         return;
     }
+
     const ctx = canvas.getContext('2d');
     if (!ctx) {
         console.error('Failed to get canvas context.');
         return;
     }
 
-    // Clear the canvas
+    // Clear the canvas before redrawing
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Canvas size and board parameters
+    // Board settings
     const width = canvas.width;
     const height = canvas.height;
-    const padding = 50; // Padding around the outermost square
-    const lineColor = '#000'; // Black lines
-    const lineWidth = 2; // Line thickness
-
-    // Define the center of the canvas
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // Draw nested squares
-    for (let i = 0; i < 3; i++) {
-        const size = (width - 2 * padding) / 3 * (3 - i);
+    // Draw squares based on the 'tabuleiro' object
+    tabuleiro.squares.forEach(square => {
+        const size = square.size;
         ctx.beginPath();
         ctx.rect(centerX - size / 2, centerY - size / 2, size, size);
-        ctx.lineWidth = lineWidth;
-        ctx.strokeStyle = lineColor;
-        ctx.stroke();
-    }
-
-    // Draw connecting lines
-    const squareSize = (width - 2 * padding) / 3;
-    const points = [
-        { x: centerX - squareSize / 2, y: centerY - squareSize / 2 }, // Top-left
-        { x: centerX + squareSize / 2, y: centerY - squareSize / 2 }, // Top-right
-        { x: centerX - squareSize / 2, y: centerY + squareSize / 2 }, // Bottom-left
-        { x: centerX + squareSize / 2, y: centerY + squareSize / 2 }  // Bottom-right
-    ];
-
-    points.forEach(point => {
-        ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.lineTo(point.x, point.y);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#000';
         ctx.stroke();
     });
 
-    // Draw valid positions for pieces (circles at intersections)
-    const positions = [
-        // Outer square
-        { x: centerX - squareSize, y: centerY - squareSize },
-        { x: centerX, y: centerY - squareSize },
-        { x: centerX + squareSize, y: centerY - squareSize },
-        { x: centerX - squareSize, y: centerY },
-        { x: centerX + squareSize, y: centerY },
-        { x: centerX - squareSize, y: centerY + squareSize },
-        { x: centerX, y: centerY + squareSize },
-        { x: centerX + squareSize, y: centerY + squareSize },
-        // Middle square
-        { x: centerX - squareSize / 2, y: centerY - squareSize / 2 },
-        { x: centerX, y: centerY - squareSize / 2 },
-        { x: centerX + squareSize / 2, y: centerY - squareSize / 2 },
-        { x: centerX - squareSize / 2, y: centerY },
-        { x: centerX + squareSize / 2, y: centerY },
-        { x: centerX - squareSize / 2, y: centerY + squareSize / 2 },
-        { x: centerX, y: centerY + squareSize / 2 },
-        { x: centerX + squareSize / 2, y: centerY + squareSize / 2 },
-        // Inner square
-        { x: centerX - squareSize / 4, y: centerY - squareSize / 4 },
-        { x: centerX, y: centerY - squareSize / 4 },
-        { x: centerX + squareSize / 4, y: centerY - squareSize / 4 },
-        { x: centerX - squareSize / 4, y: centerY },
-        { x: centerX + squareSize / 4, y: centerY },
-        { x: centerX - squareSize / 4, y: centerY + squareSize / 4 },
-        { x: centerX, y: centerY + squareSize / 4 },
-        { x: centerX + squareSize / 4, y: centerY + squareSize / 4 }
-    ];
-
-    positions.forEach(pos => {
+    // Draw valid positions (for placing pieces)
+    tabuleiro.positions.forEach(pos => {
         ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 5, 0, 2 * Math.PI);
+        ctx.arc(pos.x, pos.y, 5, 0, 2 * Math.PI); // Position and size of circles
         ctx.fillStyle = 'black';
         ctx.fill();
     });
 }
-
