@@ -28,7 +28,7 @@ function iniciarJogo() {
     pecasComputador = 0;
     tabuleiroEstado = Array(9).fill(null); // Reseta o estado do tabuleiro
 
-    desenharQuadrados(tabuleiro);
+    desenharQuadrados('gameCanvas');
     adicionarCasas(tabuleiro);
     turnoDoJogador = true; // Jogador começa
     document.getElementById("mensagem").innerText = "Jogo iniciado! Sua vez.";
