@@ -29,7 +29,7 @@ function iniciarJogo() {
     tabuleiroEstado = Array(9).fill(null); // Reseta o estado do tabuleiro
 
     desenharQuadrados('gameCanvas');
-    adicionarCasas(tabuleiro);
+    adicionarCasas('gameCanvas');
     turnoDoJogador = true; // Jogador começa
     document.getElementById("mensagem").innerText = "Jogo iniciado! Sua vez.";
 }
