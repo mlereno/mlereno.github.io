@@ -20,6 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
         canvas.addEventListener("click", handleCanvasClick);
     }
 
+    // Function to toggle the visibility of the rules section
+function toggleContent(contentId) {
+    const content = document.getElementById(contentId);
+    if (content) {
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    } else {
+        console.error(`Element with ID '${contentId}' not found.`);
+    }
+}
+
+
     // Attach the "iniciarJogo" function to the button click
     if (btnIniciar) {
         btnIniciar.addEventListener("click", iniciarJogo);
