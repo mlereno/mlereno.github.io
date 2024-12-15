@@ -106,10 +106,22 @@ function togglePlayer() {
 
 // Initialize the game
 function iniciarJogo() {
+    console.log("Jogo iniciado!");
     desenharQuadrados(tabuleiro);
     const canvas = document.getElementById(tabuleiro.canvasId);
     canvas.addEventListener('click', handleCanvasClick);
 }
+
+window.onload = function () {
+    // Attach event listener to the "Iniciar Jogo" button
+    const btnIniciar = document.getElementById("btnIniciar");
+    if (btnIniciar) {
+        btnIniciar.addEventListener("click", iniciarJogo);
+    } else {
+        console.error("Button with ID 'btnIniciar' not found.");
+    }
+};
+
 
 // Start the game
 window.onload = iniciarJogo;
