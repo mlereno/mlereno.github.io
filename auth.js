@@ -65,3 +65,22 @@ export function removerUsuario(nickname) {
     console.log('Usuários restantes:', novoUsuarios);
 }
 
+export function verificarLogin() {
+    const usuario = localStorage.getItem("usuario");
+    if (usuario) {
+        return true;
+    } else {
+        alert("Você precisa estar logado para jogar!");
+        return false;
+    }
+}
+
+export function login(usuario) {
+    localStorage.setItem("usuario", usuario);
+    alert(`Bem-vindo, ${usuario}!`);
+}
+
+export function logout() {
+    localStorage.removeItem("usuario");
+    alert("Logout realizado com sucesso!");
+}
