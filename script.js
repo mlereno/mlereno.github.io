@@ -188,11 +188,7 @@ function verificarFimDeJogo() {
 
 async function registrarUsuario(nick, password) {
     try {
-        const response = await fetch('./register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nick, password }),
-        });
+       localStorage.setItem('userData', JSON.stringify(data));
         if (!response.ok) throw new Error('Erro no registro');
         document.getElementById("mensagem").innerText = "Registrado com sucesso!";
     } catch (error) {
