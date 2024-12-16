@@ -5,6 +5,14 @@ let tabuleiro = {
         { x: 100, y: 100 }, { x: 300, y: 100 }, { x: 500, y: 100 },
         { x: 100, y: 300 },                     { x: 500, y: 300 },
         { x: 100, y: 500 }, { x: 300, y: 500 }, { x: 500, y: 500 },
+          // Middle square positions                                  
+  { x: 170, y: 170 }, { x: 300, y: 170 }, { x: 430, y: 170 }, 
+  { x: 170, y: 300 },                     { x: 430, y: 300 }, 
+  { x: 170, y: 430 }, { x: 300, y: 430 }, { x: 430, y: 430 }, 
+  // Inner square positions                                   
+  { x: 230, y: 230 }, { x: 300, y: 230 }, { x: 370, y: 230 }, 
+  { x: 230, y: 300 },                     { x: 370, y: 300 }, 
+  { x: 230, y: 370 }, { x: 300, y: 370 }, { x: 370, y: 370 }, 
     ],
     pieces: [], // Tracks placed pieces
     currentPlayer: 'player1',
