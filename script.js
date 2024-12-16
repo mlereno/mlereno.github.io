@@ -1,23 +1,10 @@
 // Define the game board and state
 let tabuleiro = {
-    squares: [
-        { level: 1, size: 400 }, // Outermost square
-        { level: 2, size: 280 }, // Middle square
-        { level: 3, size: 160 }  // Innermost square
-    ],
     positions: [
-        // Outer square positions
+        // Define square positions for the game
         { x: 100, y: 100 }, { x: 300, y: 100 }, { x: 500, y: 100 },
         { x: 100, y: 300 },                     { x: 500, y: 300 },
         { x: 100, y: 500 }, { x: 300, y: 500 }, { x: 500, y: 500 },
-        // Middle square positions
-        { x: 170, y: 170 }, { x: 300, y: 170 }, { x: 430, y: 170 },
-        { x: 170, y: 300 },                     { x: 430, y: 300 },
-        { x: 170, y: 430 }, { x: 300, y: 430 }, { x: 430, y: 430 },
-        // Inner square positions
-        { x: 230, y: 230 }, { x: 300, y: 230 }, { x: 370, y: 230 },
-        { x: 230, y: 300 },                     { x: 370, y: 300 },
-        { x: 230, y: 370 }, { x: 300, y: 370 }, { x: 370, y: 370 },
     ],
     pieces: [], // Tracks placed pieces
     currentPlayer: 'player1',
@@ -35,26 +22,13 @@ function desenharQuadrados(tabuleiro) {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
 
-    // Board settings
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-
-    // Draw squares
-    tabuleiro.squares.forEach(square => {
-        const size = square.size;
-        ctx.beginPath();
-        ctx.rect(centerX - size / 2, centerY - size / 2, size, size);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#000';
-        ctx.stroke();
-    });
-
     // Draw valid positions
     tabuleiro.positions.forEach(pos => {
         ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = 'black';
-        ctx.fill();
+        ctx.rect(pos.x - 25, pos.y - 25, 50, 50); // Draw a square around each position
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#000';
+        ctx.stroke();
     });
 
     // Draw pieces
@@ -121,7 +95,6 @@ window.onload = function () {
         console.error("Button with ID 'btnIniciar' not found.");
     }
 };
-
 
 // Start the game
 window.onload = iniciarJogo;
